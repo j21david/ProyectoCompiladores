@@ -2,28 +2,22 @@
 FILE *archSal;
 
 %}
-
 %%
 
-[0-9] 				fprintf(archSal,"Integer ",yytext);
+[0-9]|"-"[0-9]|"+"[0-9]		fprintf(archSal,"Integer ",yytext);
 [0-9]*"."[0-9]+			fprintf(archSal,"Float ",yytext);
-"True"|"False"			fprintf(archSal,"Boolean ",yytext);
-"if"			fprintf(archSal,"if ",yytext);
-"else"			fprintf(archSal,"else ",yytext);
-"while"			fprintf(archSal,"while ",yytext);
-"int"			fprintf(archSal,"int ",yytext);
-"String"		fprintf(archSal,"String ",yytext);
-"Char "			fprintf(archSal,"Char ",yytext);
-"void"    	fprintf(archSal,"void ",yytext);
+"True"|"False"|"true"|"false"			fprintf(archSal,"bool ",yytext);
+"if"|"else"|"return"|"bool"|"string"|"int"|"float"|"char"|"then"|"while"|"do"|"input"|"output"	fprintf(archSal,"Palabra reservada ",yytext);
+
+","|";"|":"|"("|")"|"["|"]"|"{"|"}"|"+"|"-"|"/"|"<"|">"|"="|"!"|"&"|"$"		fprintf(archSal,"Caracteres Especiales ",yytext);
+ 		
+"<="|">="|"=="|"!="|"&&"|"||"			fprintf(archSal,"Operando Compuesto ",yytext);
 
 [a-z]([a-z]|[0-9])* 		fprintf(archSal,"Identificador ",yytext);
-"("				fprintf(archSal,"( ",yytext);
-")"				fprintf(archSal,") ",yytext);
-"{"				fprintf(archSal,"{ ",yytext);
-"}"				fprintf(archSal,"} ",yytext);
-"="				fprintf(archSal,"Operador ",yytext);
+"'"[.]1"'"			fprintf(archSal,"char ",yytext);
+"""."""			fprintf(archSal,"string ",yytext);
 \n				fprintf(archSal,"\n",yytext);
-";"				fprintf(archSal,"; ",yytext);
+
 
 
 
